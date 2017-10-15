@@ -45,7 +45,7 @@ def sendEmail():
     emailString = 'Projected lows for the next 5 days are:\r\n'
     for day in forecastLows:
         emailString += day + ': ' + str(forecastLows[day]) + '\r\n'
-    if freezingDays > 0:
+    if len(freezingDays) > 0:
         subj = 'FREEZING TEMPS UPCOMING'
         emailString += 'Projected lows near or below freezing for:\r\n'
         for day in freezingDays:
