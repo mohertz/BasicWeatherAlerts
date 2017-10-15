@@ -5,7 +5,7 @@ from email.mime.text import MIMEText
 import configInfo
 
 
-serviceurl = 'http://api.openweathermap.org/data/2.5/forecast?id=5327522&units=imperial&APPID='+configInfo.APIkey
+serviceurl = 'http://api.openweathermap.org/data/2.5/forecast?id='+configInfo.cityID+'&units=imperial&APPID='+configInfo.APIkey
 forecastLows = {}
 freezingDays = []
 
@@ -39,18 +39,21 @@ def checkForecast():
 
 
 def sendEmail():
+    subj = 'Projected Lows'
+
     # building email with forecast
     emailString = 'Projected lows for the next 5 days are:\r\n'
     for day in forecastLows:
         emailString += day + ': ' + str(forecastLows[day]) + '\r\n'
     if freezingDays > 0:
+        subj = 'FREEZING TEMPS UPCOMING'
         emailString += 'Projected lows near or below freezing for:\r\n'
         for day in freezingDays:
             emailString += day + '\r\n'
 
     # send email
     msg = MIMEText(emailString)
-    msg['Subject'] = 'Projected Lows'
+    msg['Subject'] = subj
     msg['From'] = configInfo.EMAIL_FROM
     msg['To'] = configInfo.EMAIL_TO
     debuglevel = True

@@ -1,4 +1,5 @@
-# Open Weather Map API Key
+# Open Weather Map Config
+cityID = 'YOUR CITY ID'
 APIkey = 'YOUR API KEY HERE'
 
 
