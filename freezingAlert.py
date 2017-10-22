@@ -34,9 +34,6 @@ def checkForecast():
         if projLow < 33 and forecastDay not in freezingDays:
             freezingDays.append(forecastDay)
 
-    for day in forecastLows:
-        print(day + ':', forecastLows[day])
-
 
 def sendEmail():
     subj = 'Projected Lows'
@@ -55,13 +52,13 @@ def sendEmail():
     msg = MIMEText(emailString)
     msg['Subject'] = subj
     msg['From'] = configInfo.EMAIL_FROM
-    msg['To'] = configInfo.EMAIL_TO
+    msg['To'] = configInfo.EMAIL_TO['Lows']
     debuglevel = True
     mail = smtplib.SMTP(configInfo.SMTP_SERVER, configInfo.SMTP_PORT)
     mail.set_debuglevel(debuglevel)
     mail.starttls()
     mail.login(configInfo.SMTP_USERNAME, configInfo.SMTP_PASSWORD)
-    mail.sendmail(configInfo.EMAIL_FROM, configInfo.EMAIL_TO, msg.as_string())
+    mail.sendmail(configInfo.EMAIL_FROM, configInfo.EMAIL_TO['Lows'].split(','), msg.as_string())
     mail.quit()
 
 
